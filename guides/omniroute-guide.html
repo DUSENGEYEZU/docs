@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OmniRoute Team Guide</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#f6f7f9;
+  --surface:#ffffff;
+  --ink:#1d2733;
+  --ink-soft:#4b5a6b;
+  --line:#d8dee6;
+  --accent:#b34f14;
+  --accent-ink:#8f3f10;
+  --slate:#33506b;
+  --code-bg:#16202b;
+  --code-ink:#dbe4ee;
+  --code-accent:#f0a06a;
+  --ok-bg:#e7f2ea;
+  --ok-ink:#245c37;
+  --warn-bg:#fdf0e4;
+  --warn-line:#e5b98e;
+  --warn-ink:#7c4a12;
+  --chip-bg:#e9edf2;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#12181f;
+    --surface:#1a222c;
+    --ink:#e3e9f0;
+    --ink-soft:#9fadbc;
+    --line:#2e3a47;
+    --accent:#e0824a;
+    --accent-ink:#e89563;
+    --slate:#93b0cc;
+    --code-bg:#0e141b;
+    --code-ink:#d5dfea;
+    --code-accent:#f0a06a;
+    --ok-bg:#1d3226;
+    --ok-ink:#94ceA6;
+    --warn-bg:#33261682;
+    --warn-line:#7a5426;
+    --warn-ink:#e5b071;
+    --chip-bg:#242f3b;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#12181f;
+  --surface:#1a222c;
+  --ink:#e3e9f0;
+  --ink-soft:#9fadbc;
+  --line:#2e3a47;
+  --accent:#e0824a;
+  --accent-ink:#e89563;
+  --slate:#93b0cc;
+  --code-bg:#0e141b;
+  --code-ink:#d5dfea;
+  --code-accent:#f0a06a;
+  --ok-bg:#1d3226;
+  --ok-ink:#94ceA6;
+  --warn-bg:#33261682;
+  --warn-line:#7a5426;
+  --warn-ink:#e5b071;
+  --chip-bg:#242f3b;
+}
+*{box-sizing:border-box}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",-apple-system,"Segoe UI",sans-serif;
+  font-size:16px;
+  line-height:1.65;
+  margin:0;
+  padding:0 20px;
+}
+.page{max-width:760px;margin:0 auto;padding-block:48px 72px}
+header.doc{border-bottom:3px solid var(--accent);padding-bottom:28px;margin-bottom:40px}
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:.75rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--accent-ink);
+  margin:0 0 10px;
+}
+h1{
+  font-family:Archivo,"IBM Plex Sans",sans-serif;
+  font-weight:700;
+  font-size:clamp(1.9rem,5vw,2.6rem);
+  line-height:1.12;
+  letter-spacing:-.015em;
+  margin:0 0 12px;
+  text-wrap:balance;
+}
+.lede{font-size:1.06rem;color:var(--ink-soft);max-width:58ch;margin:0 0 18px}
+.meta{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  background:var(--chip-bg);
+  border-radius:4px;
+  padding:3px 10px;
+  font-family:"IBM Plex Mono",monospace;
+  font-size:.74rem;
+  color:var(--ink-soft);
+  white-space:nowrap;
+}
+section{margin-bottom:48px}
+h2{
+  font-family:Archivo,"IBM Plex Sans",sans-serif;
+  font-weight:650;
+  font-size:1.45rem;
+  letter-spacing:-.01em;
+  line-height:1.2;
+  margin:0 0 6px;
+  text-wrap:balance;
+  display:flex;
+  align-items:baseline;
+  gap:12px;
+}
+h2 .num{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:.85rem;
+  font-weight:500;
+  color:var(--accent-ink);
+  letter-spacing:.05em;
+}
+h3{
+  font-family:Archivo,"IBM Plex Sans",sans-serif;
+  font-weight:600;
+  font-size:1.05rem;
+  margin:26px 0 6px;
+}
+p{margin:0 0 14px;max-width:66ch}
+ul,ol{margin:0 0 14px;padding-left:22px;max-width:64ch}
+li{margin-bottom:6px}
+strong{font-weight:600}
+a{color:var(--accent-ink)}
+code{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:.86em;
+  background:var(--chip-bg);
+  padding:1px 5px;
+  border-radius:3px;
+}
+pre{
+  background:var(--code-bg);
+  color:var(--code-ink);
+  border-radius:6px;
+  padding:14px 18px;
+  overflow-x:auto;
+  margin:0 0 16px;
+  line-height:1.55;
+}
+pre code{background:none;padding:0;font-size:.84rem;color:inherit}
+pre .cm{color:#7b8a99}
+pre .hl{color:var(--code-accent)}
+.rule-note{
+  font-size:.85rem;
+  color:var(--ink-soft);
+  margin-top:-8px;
+  margin-bottom:16px;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:.92rem;
+  margin:0 0 16px;
+}
+.table-wrap{overflow-x:auto;margin:0 0 16px}
+.table-wrap table{margin:0;min-width:520px}
+th{
+  text-align:left;
+  font-family:Archivo,"IBM Plex Sans",sans-serif;
+  font-weight:600;
+  font-size:.8rem;
+  text-transform:uppercase;
+  letter-spacing:.07em;
+  color:var(--slate);
+  border-bottom:2px solid var(--line);
+  padding:8px 14px 8px 0;
+}
+td{
+  border-bottom:1px solid var(--line);
+  padding:9px 14px 9px 0;
+  vertical-align:top;
+}
+td code{white-space:nowrap}
+.callout{
+  border:1px solid var(--warn-line);
+  background:var(--warn-bg);
+  border-radius:6px;
+  padding:14px 18px;
+  margin:0 0 16px;
+  font-size:.94rem;
+}
+.callout p{margin:0;max-width:none}
+.callout .callout-title{
+  font-family:Archivo,"IBM Plex Sans",sans-serif;
+  font-weight:600;
+  color:var(--warn-ink);
+  display:block;
+  margin-bottom:4px;
+}
+.glance{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:20px 24px;
+  margin:0 0 8px;
+}
+.glance dl{
+  display:grid;
+  grid-template-columns:max-content 1fr;
+  gap:6px 20px;
+  margin:0;
+  font-size:.93rem;
+}
+.glance dt{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:.78rem;
+  color:var(--ink-soft);
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  padding-top:2px;
+}
+.glance dd{margin:0}
+.diagram-wrap{overflow-x:auto;margin:20px 0 8px}
+.diagram{display:block;min-width:560px;width:100%;height:auto}
+.diagram text{font-family:"IBM Plex Sans",sans-serif;fill:var(--ink)}
+.diagram .mono{font-family:"IBM Plex Mono",monospace;fill:var(--ink-soft)}
+.diagram .box{fill:var(--surface);stroke:var(--line);stroke-width:1.2}
+.diagram .gw{fill:var(--code-bg);stroke:var(--accent);stroke-width:1.5}
+.diagram .gwt{fill:var(--code-ink)}
+.diagram .gwm{fill:var(--code-accent)}
+.diagram .arrow{stroke:var(--ink-soft);stroke-width:1.4;fill:none;marker-end:url(#ah)}
+footer.doc{
+  border-top:1px solid var(--line);
+  padding-top:20px;
+  font-size:.85rem;
+  color:var(--ink-soft);
+}
+@media (max-width:480px){
+  .glance dl{grid-template-columns:1fr;gap:2px}
+  .glance dt{margin-top:8px}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<header class="doc">
+  <p class="eyebrow">Internal tool guide</p>
+  <h1>OmniRoute: a free fallback gateway for our AI coding tools</h1>
+  <p class="lede">How to install and run the OmniRoute gateway on your machine, and connect Claude Code, Cline, and Codex to it — so you can keep working on free models whenever your main AI subscription hits its usage limit.</p>
+  <div class="meta">
+    <span class="chip">macOS · Linux</span>
+    <span class="chip">Node.js ≥ 18</span>
+    <span class="chip">localhost:20128</span>
+    <span class="chip">Sept 2026</span>
+  </div>
+</header>
+
+<section>
+  <h2><span class="num">1</span>What is OmniRoute?</h2>
+  <p><strong>OmniRoute</strong> (<a href="https://github.com/diegosouzapw/OmniRoute">github.com/diegosouzapw/OmniRoute</a>) is an open-source, self-hosted <strong>LLM gateway</strong>. It runs entirely on your own machine and exposes one local API endpoint that stands in front of 350+ AI providers and 1,200+ models. Your coding tools talk to the gateway; the gateway picks a working model — falling back automatically when a provider is down or its quota is used up.</p>
+
+  <div class="diagram-wrap">
+  <svg class="diagram" viewBox="0 0 660 210" role="img" aria-label="Diagram: Claude Code, Cline and Codex send requests to the OmniRoute gateway on localhost port 20128, which routes them to free model providers">
+    <defs>
+      <marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#8a97a5"/></marker>
+    </defs>
+    <rect class="box" x="10" y="18" width="150" height="40" rx="5"/>
+    <text x="85" y="38" text-anchor="middle" font-size="13" font-weight="600">Claude Code</text>
+    <text class="mono" x="85" y="52" text-anchor="middle" font-size="10">claude-omni</text>
+    <rect class="box" x="10" y="84" width="150" height="40" rx="5"/>
+    <text x="85" y="104" text-anchor="middle" font-size="13" font-weight="600">Cline (VS&nbsp;Code)</text>
+    <text class="mono" x="85" y="118" text-anchor="middle" font-size="10">OpenAI Compatible</text>
+    <rect class="box" x="10" y="150" width="150" height="40" rx="5"/>
+    <text x="85" y="170" text-anchor="middle" font-size="13" font-weight="600">Codex CLI</text>
+    <text class="mono" x="85" y="184" text-anchor="middle" font-size="10">omniroute launch-codex</text>
+    <path class="arrow" d="M160 38 C 210 38, 210 88, 252 96"/>
+    <path class="arrow" d="M160 104 L 252 104"/>
+    <path class="arrow" d="M160 170 C 210 170, 210 120, 252 112"/>
+    <rect class="gw" x="256" y="72" width="170" height="64" rx="7"/>
+    <text class="gwt" x="341" y="98" text-anchor="middle" font-size="14" font-weight="600">OmniRoute gateway</text>
+    <text class="gwm" x="341" y="118" text-anchor="middle" font-size="11">http://localhost:20128</text>
+    <path class="arrow" d="M426 92 C 470 84, 470 46, 508 42"/>
+    <path class="arrow" d="M426 104 L 508 104"/>
+    <path class="arrow" d="M426 116 C 470 124, 470 162, 508 166"/>
+    <rect class="box" x="512" y="22" width="138" height="38" rx="5"/>
+    <text x="581" y="45" text-anchor="middle" font-size="12">Free provider A</text>
+    <rect class="box" x="512" y="85" width="138" height="38" rx="5"/>
+    <text x="581" y="108" text-anchor="middle" font-size="12">Free provider B</text>
+    <rect class="box" x="512" y="148" width="138" height="38" rx="5"/>
+    <text x="581" y="171" text-anchor="middle" font-size="12">Paid (optional)</text>
+  </svg>
+  </div>
+
+  <h3>Why we use it</h3>
+  <ul>
+    <li><strong>Free fallback.</strong> When a Claude / Cursor / Copilot usage limit is reached mid-task, you switch to the gateway and keep working on free models until the limit resets. It works out of the box with a pre-wired free provider — no API keys, no account.</li>
+    <li><strong>One endpoint for every tool.</strong> Terminal agents, VS Code extensions, and its own web playground all point at the same local address.</li>
+    <li><strong>Local-first.</strong> The gateway, its dashboard, and its request logs run on your machine. Any provider keys you add are stored encrypted (AES-256-GCM).</li>
+  </ul>
+
+  <h3>What to expect</h3>
+  <ul>
+    <li>Free models are noticeably <strong>weaker than Claude / GPT-class models</strong>. Fine for small edits, questions, boilerplate; save complex work for your main subscription.</li>
+    <li>Requests routed to free providers <strong>leave your machine</strong> and pass through those third-party services. Check your organisation's policy before using it on sensitive code.</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="num">2</span>Installation</h2>
+  <p>Requires Node.js 18 or newer (<code>node --version</code> to check). Then:</p>
+<pre><code>npm install -g omniroute</code></pre>
+  <p>The first run creates its data directory at <code>~/.omniroute/</code> (settings, request logs, encrypted key store, SQLite database).</p>
+</section>
+
+<section>
+  <h2><span class="num">3</span>Running the gateway</h2>
+<pre><code>omniroute</code></pre>
+  <div class="glance">
+    <dl>
+      <dt>Dashboard</dt><dd><a href="http://localhost:20128">http://localhost:20128</a> — playground, request logs, provider &amp; model management</dd>
+      <dt>API base</dt><dd><code>http://localhost:20128/v1</code> (OpenAI-compatible) · Anthropic-compatible at the root URL</dd>
+      <dt>Login</dt><dd>Default password is <code>CHANGEME</code></dd>
+    </dl>
+  </div>
+
+  <div class="callout">
+    <span class="callout-title">Change the default password on first login</span>
+    <p>Every fresh install uses the well-known password <code>CHANGEME</code>. Sign in once and change it in the dashboard settings — especially before adding any real provider API keys.</p>
+  </div>
+
+  <h3>Start automatically at login</h3>
+<pre><code>omniroute autostart enable</code></pre>
+  <p class="rule-note">On macOS this writes a LaunchAgent (<code>~/Library/LaunchAgents/com.omniroute.autostart.plist</code>); on Linux, a systemd user service. Note: the LaunchAgent pins the absolute path of your current Node version — if you upgrade Node with nvm, run <code>omniroute autostart enable</code> again.</p>
+
+  <h3>Everyday commands</h3>
+  <div class="table-wrap"><table>
+    <tr><th>Command</th><th>What it does</th></tr>
+    <tr><td><code>omniroute status</code></td><td>Status dashboard in the terminal</td></tr>
+    <tr><td><code>omniroute stop</code> / <code>restart</code></td><td>Stop or restart the server</td></tr>
+    <tr><td><code>omniroute models</code></td><td>List models currently available through the gateway</td></tr>
+    <tr><td><code>omniroute quota</code></td><td>Provider quota usage</td></tr>
+    <tr><td><code>omniroute logs</code></td><td>Stream request logs</td></tr>
+    <tr><td><code>omniroute doctor</code></td><td>Diagnose a broken install</td></tr>
+  </table></div>
+</section>
+
+<section>
+  <h2><span class="num">4</span>Integrating Claude Code</h2>
+  <p>We use an <strong>opt-in shell alias</strong> rather than OmniRoute's <code>setup-claude</code> command. The alias gives you a second command that routes through the gateway, while plain <code>claude</code> (and the Claude Code VS Code extension) keep using your Anthropic subscription untouched.</p>
+  <p>Add this once to <code>~/.zshrc</code> (or <code>~/.bashrc</code>):</p>
+<pre><code>alias claude-omni='ANTHROPIC_BASE_URL=http://localhost:20128 \
+  ANTHROPIC_AUTH_TOKEN=omniroute \
+  ANTHROPIC_SMALL_FAST_MODEL=auto \
+  ANTHROPIC_DEFAULT_HAIKU_MODEL=auto \
+  claude --model auto'</code></pre>
+  <p>Then reload with <code>source ~/.zshrc</code>. Day to day:</p>
+  <div class="table-wrap"><table>
+    <tr><th>You type</th><th>What happens</th><th>When</th></tr>
+    <tr><td><code>claude</code></td><td>Normal Claude Code on your Anthropic subscription</td><td>Every day</td></tr>
+    <tr><td><code>claude-omni</code></td><td>Claude Code through OmniRoute, on free models</td><td>Usage limit reached</td></tr>
+  </table></div>
+
+  <h3>Three details that matter</h3>
+  <ul>
+    <li><strong>Base URL has no <code>/v1</code>.</strong> Claude Code appends <code>/v1/messages</code> itself. With <code>/v1</code> in the URL, requests 404.</li>
+    <li><strong><code>--model auto</code> must be a CLI flag.</strong> Claude Code ignores the <code>ANTHROPIC_MODEL</code> environment variable and keeps requesting its real model name, which the gateway rejects with <em>“400 — Unable to determine provider for model 'claude-…'”</em>. The flag forces <code>auto</code>, which OmniRoute routes to whatever free model is available.</li>
+    <li><strong>Ignore the catalog warning.</strong> On startup you'll see <em>“'auto' isn't described by this version's model catalog”</em> — harmless; Claude Code just assumes a safe 200k context window.</li>
+  </ul>
+
+  <div class="callout">
+    <span class="callout-title">Avoid <code>omniroute setup-claude</code></span>
+    <p>That command rewrites your global Claude Code configuration so <em>every</em> session — including the VS Code extension — goes through the gateway. If the gateway is down, everything breaks. The alias keeps the switch per-terminal and reversible.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">5</span>Integrating Cline, Codex, and Cursor</h2>
+
+  <h3>Cline (VS Code extension) — recommended</h3>
+  <p>Cline runs on your machine, so it reaches <code>localhost</code> directly. In the Cline sidebar, open <strong>⚙ Settings → API Configuration</strong> and set:</p>
+  <div class="table-wrap"><table>
+    <tr><th>Field</th><th>Value</th></tr>
+    <tr><td>API Provider</td><td><code>OpenAI Compatible</code></td></tr>
+    <tr><td>Base URL</td><td><code>http://localhost:20128</code> — <strong>without</strong> <code>/v1</code>; Cline appends it</td></tr>
+    <tr><td>API Key</td><td>any value, e.g. <code>omniroute</code> (the local gateway doesn't require a real key)</td></tr>
+    <tr><td>Model ID</td><td><code>auto</code></td></tr>
+  </table></div>
+
+  <h3>Codex CLI</h3>
+  <p>OmniRoute ships a dedicated launcher, so there is nothing to configure by hand:</p>
+<pre><code><span class="cm"># one-time install of the Codex CLI</span>
+npm install -g @openai/codex
+
+<span class="cm"># launch Codex already pointed at the gateway</span>
+omniroute launch-codex</code></pre>
+  <p class="rule-note">For a permanent profile instead of the launcher: <code>omniroute configure codex --model auto --yes</code> writes one into <code>~/.codex/config.toml</code>.</p>
+
+  <h3>Cursor — not recommended</h3>
+  <p>The Cursor editor <strong>cannot use a localhost gateway</strong>: when you give Cursor a custom API key or base URL, requests are sent from <em>Cursor's cloud servers</em>, which cannot reach an address on your machine. Verification simply fails — it is an architectural limit, not a settings problem.</p>
+  <p>The only workaround is exposing your gateway on a public URL (<code>omniroute tunnel</code>) and pasting that into Cursor's “Override OpenAI Base URL”. That puts your gateway on the open internet, so it demands a strong dashboard password and a real gateway API key first. For most of us: use Cursor on its own models, and take the free fallback in Claude Code or Cline instead.</p>
+</section>
+
+<section>
+  <h2><span class="num">6</span>Quick reference</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Situation</th><th>Do this</th></tr>
+    <tr><td>Main AI subscription limit reached</td><td>Terminal: <code>claude-omni</code> · VS Code: switch to Cline</td></tr>
+    <tr><td>Gateway not responding</td><td><code>omniroute</code> to start it, or <code>omniroute restart</code></td></tr>
+    <tr><td>See what models are live</td><td><code>omniroute models</code>, or the dashboard playground</td></tr>
+    <tr><td>Check spend / quotas</td><td><code>omniroute quota</code> · <code>omniroute cost</code></td></tr>
+    <tr><td>Something is broken</td><td><code>omniroute doctor</code>, then check <code>~/.omniroute/logs/</code></td></tr>
+  </table></div>
+</section>
+
+<footer class="doc">
+  Prepared by Longin Dusengeyezu · September 2026 · OmniRoute is open source (MIT), no affiliation — verify commands against the <a href="https://github.com/diegosouzapw/OmniRoute">official repository</a> before installing on managed machines.
+</footer>
+
+</div>
+
+</body>
+</html>

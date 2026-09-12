@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Longin's Documentation Hub</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#f6f7f9; --surface:#ffffff; --ink:#1d2733; --ink-soft:#4b5a6b;
+  --line:#d8dee6; --accent:#b34f14; --accent-ink:#8f3f10; --chip-bg:#e9edf2;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --paper:#12181f; --surface:#1a222c; --ink:#e3e9f0; --ink-soft:#9fadbc;
+    --line:#2e3a47; --accent:#e0824a; --accent-ink:#e89563; --chip-bg:#242f3b;
+  }
+}
+*{box-sizing:border-box}
+body{
+  background:var(--paper); color:var(--ink); margin:0; padding:0 20px;
+  font-family:"IBM Plex Sans",-apple-system,"Segoe UI",sans-serif;
+  font-size:16px; line-height:1.6;
+}
+.page{max-width:720px;margin:0 auto;padding-block:56px 72px}
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace;font-size:.75rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--accent-ink);margin:0 0 10px;
+}
+h1{
+  font-family:Archivo,sans-serif;font-weight:700;letter-spacing:-.015em;
+  font-size:clamp(1.8rem,5vw,2.4rem);line-height:1.15;margin:0 0 10px;text-wrap:balance;
+}
+.lede{color:var(--ink-soft);margin:0 0 36px;max-width:56ch}
+h2{
+  font-family:Archivo,sans-serif;font-weight:650;font-size:.85rem;
+  text-transform:uppercase;letter-spacing:.1em;color:var(--ink-soft);
+  border-bottom:2px solid var(--line);padding-bottom:8px;margin:36px 0 4px;
+}
+.doc-list{list-style:none;margin:0;padding:0}
+.doc-list li{border-bottom:1px solid var(--line)}
+.doc-list a{
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;
+  padding:16px 4px;text-decoration:none;color:inherit;
+}
+.doc-list a:hover .doc-title{color:var(--accent-ink);text-decoration:underline}
+.doc-title{font-weight:600;font-size:1.05rem}
+.doc-desc{color:var(--ink-soft);font-size:.92rem;flex-basis:100%;margin:0}
+.doc-date{
+  font-family:"IBM Plex Mono",monospace;font-size:.74rem;color:var(--ink-soft);
+  background:var(--chip-bg);border-radius:4px;padding:2px 8px;white-space:nowrap;
+}
+footer{margin-top:56px;border-top:1px solid var(--line);padding-top:18px;
+  font-size:.85rem;color:var(--ink-soft)}
+footer a{color:var(--accent-ink)}
+</style>
+</head>
+<body>
+<div class="page">
+  <p class="eyebrow">DUSENGEYEZU / docs</p>
+  <h1>Longin's Documentation Hub</h1>
+  <p class="lede">Guides and technical documentation by Longin Dusengeyezu — data scientist &amp; engineer, Kigali. Each entry below is a standalone page you can read and share directly.</p>
+
+  <h2>Guides</h2>
+  <ul class="doc-list">
+    <li>
+      <a href="guides/omniroute-guide.html">
+        <span class="doc-title">OmniRoute Team Guide</span>
+        <span class="doc-date">2026-09</span>
+        <p class="doc-desc">Installing the OmniRoute gateway and connecting Claude Code, Cline, and Codex as a free fallback when AI usage limits are reached.</p>
+      </a>
+    </li>
+  </ul>
+
+  <footer>
+    Maintained by <a href="https://github.com/DUSENGEYEZU">Longin Dusengeyezu</a>. Source for these pages lives in the <a href="https://github.com/DUSENGEYEZU/docs">docs repository</a>.
+  </footer>
+</div>
+</body>
+</html>
