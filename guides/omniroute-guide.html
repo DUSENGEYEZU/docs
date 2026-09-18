@@ -299,7 +299,7 @@ footer.doc{
 
   <h3>Why we use it</h3>
   <ul>
-    <li><strong>Free fallback.</strong> When a Claude / Cursor / Copilot usage limit is reached mid-task, you switch to the gateway and keep working on free models until the limit resets. It works out of the box with a pre-wired free provider — no API keys, no account.</li>
+    <li><strong>Free fallback.</strong> When a Claude / Cursor / Copilot usage limit is reached mid-task, you switch to the gateway and keep working on free models until the limit resets. You register a handful of free-tier API keys once (section 4); the gateway then rotates across them automatically.</li>
     <li><strong>One endpoint for every tool.</strong> Terminal agents, VS Code extensions, and its own web playground all point at the same local address.</li>
     <li><strong>Local-first.</strong> The gateway, its dashboard, and its request logs run on your machine. Any provider keys you add are stored encrypted (AES-256-GCM).</li>
   </ul>
@@ -351,7 +351,39 @@ footer.doc{
 </section>
 
 <section>
-  <h2><span class="num">4</span>Integrating Claude Code</h2>
+  <h2><span class="num">4</span>Free providers &amp; API keys</h2>
+  <p>Since September 2026 the keyless providers OmniRoute shipped with no longer accept outside traffic (OpenCode's free tier now answers <em>“can only be used from within OpenCode” — HTTP 403</em>). The gateway therefore needs a few <strong>free-tier API keys</strong> — each takes about two minutes to create and costs nothing. With several registered, the <code>auto</code> model rotates across all of them and fails over when one hits its daily quota.</p>
+
+  <h3>Providers we currently use</h3>
+  <div class="table-wrap"><table>
+    <tr><th>Provider</th><th>Get a free key at</th><th>Key looks like</th></tr>
+    <tr><td>Google Gemini</td><td><a href="https://aistudio.google.com/apikey">aistudio.google.com/apikey</a></td><td><code>AIza…</code></td></tr>
+    <tr><td>Groq</td><td><a href="https://console.groq.com">console.groq.com</a> → API Keys</td><td><code>gsk_…</code></td></tr>
+    <tr><td>OpenRouter</td><td><a href="https://openrouter.ai/settings/keys">openrouter.ai/settings/keys</a></td><td><code>sk-or-…</code></td></tr>
+    <tr><td>Mistral</td><td><a href="https://console.mistral.ai/api-keys">console.mistral.ai/api-keys</a> — free “Experiment” plan</td><td>random letters</td></tr>
+    <tr><td>Cohere</td><td><a href="https://dashboard.cohere.com">dashboard.cohere.com</a> → API Keys, trial key</td><td>random letters</td></tr>
+  </table></div>
+  <p class="rule-note">All five work without a credit card. Cerebras also has a free tier but asks for a card at sign-up, so we skip it.</p>
+
+  <h3>Registering a key — dashboard</h3>
+  <ol>
+    <li>Open <a href="http://localhost:20128">http://localhost:20128</a> and sign in</li>
+    <li>Go to <strong>Settings → Providers</strong></li>
+    <li>Pick the provider (Gemini, Groq, …), paste the key, and save</li>
+  </ol>
+
+  <h3>Registering a key — terminal</h3>
+<pre><code><span class="cm"># example: add a Groq key (stdin keeps it out of shell history)</span>
+printf '%s' 'gsk_YOUR_KEY_HERE' | omniroute providers add groq --credential-stdin --yes
+
+<span class="cm"># confirm and check key health</span>
+omniroute providers list
+omniroute providers status</code></pre>
+  <p>Keys are stored encrypted (AES-256-GCM) in <code>~/.omniroute/</code>. To replace an expired or leaked key: <code>omniroute providers rotate &lt;name&gt;</code>.</p>
+</section>
+
+<section>
+  <h2><span class="num">5</span>Integrating Claude Code</h2>
   <p>We use an <strong>opt-in shell alias</strong> rather than OmniRoute's <code>setup-claude</code> command. The alias gives you a second command that routes through the gateway, while plain <code>claude</code> (and the Claude Code VS Code extension) keep using your Anthropic subscription untouched.</p>
   <p>Add this once to <code>~/.zshrc</code> (or <code>~/.bashrc</code>):</p>
 <pre><code>alias claude-omni='ANTHROPIC_BASE_URL=http://localhost:20128 \
@@ -380,7 +412,7 @@ footer.doc{
 </section>
 
 <section>
-  <h2><span class="num">5</span>Integrating Cline, Codex, and Cursor</h2>
+  <h2><span class="num">6</span>Integrating Cline, Codex, and Cursor</h2>
 
   <h3>Cline (VS Code extension) — recommended</h3>
   <p>Cline runs on your machine, so it reaches <code>localhost</code> directly. In the Cline sidebar, open <strong>⚙ Settings → API Configuration</strong> and set:</p>
@@ -407,13 +439,14 @@ omniroute launch-codex</code></pre>
 </section>
 
 <section>
-  <h2><span class="num">6</span>Quick reference</h2>
+  <h2><span class="num">7</span>Quick reference</h2>
   <div class="table-wrap"><table>
     <tr><th>Situation</th><th>Do this</th></tr>
     <tr><td>Main AI subscription limit reached</td><td>Terminal: <code>claude-omni</code> · VS Code: switch to Cline</td></tr>
     <tr><td>Gateway not responding</td><td><code>omniroute</code> to start it, or <code>omniroute restart</code></td></tr>
     <tr><td>See what models are live</td><td><code>omniroute models</code>, or the dashboard playground</td></tr>
     <tr><td>Check spend / quotas</td><td><code>omniroute quota</code> · <code>omniroute cost</code></td></tr>
+    <tr><td>Free models erroring (402 / 403)</td><td>Add or refresh a provider key — see section 4</td></tr>
     <tr><td>Something is broken</td><td><code>omniroute doctor</code>, then check <code>~/.omniroute/logs/</code></td></tr>
   </table></div>
 </section>
