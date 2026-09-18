@@ -445,6 +445,7 @@ wire_api = "responses"</code></pre>
     <li>No API key is needed — the gateway accepts local requests without one.</li>
     <li>Plain <code>codex</code> in the terminal now routes through the gateway, and the <strong>Codex VS Code extension</strong> (search <em>Codex</em> by OpenAI, id <code>openai.chatgpt</code>) reads the same file, so it works too.</li>
   </ul>
+  <p class="rule-note">Alternative — opt-in like <code>claude-omni</code>: if you have a paid OpenAI account and want plain <code>codex</code> to keep using it, put the same block in <code>~/.codex/omni.config.toml</code> instead of the main config, and add <code>alias codex-omni='codex --profile omni'</code> to <code>~/.zshrc</code>. Then <code>codex-omni</code> uses the gateway and plain <code>codex</code> stays on your subscription.</p>
 
   <h3>GitHub Copilot Chat (VS Code)</h3>
   <p>Copilot's <em>chat</em> can use the gateway; the inline grey-text autocompletions cannot — those always use GitHub's own service. In the chat panel, click the model name at the bottom of the input box → <strong>Manage Models</strong>, add a custom endpoint with URL <code>http://localhost:20128/v1</code>, API type <em>Chat Completions</em>, any API key, model ID <code>auto</code>. Then pick that model in the chat's model picker — the entry under the <em>localhost:20128</em> group, not Copilot's own “Auto”, which is a different model with the same name.</p>
