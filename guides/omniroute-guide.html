@@ -363,14 +363,18 @@ footer.doc{
     <tr><td>Mistral</td><td><a href="https://console.mistral.ai/api-keys">console.mistral.ai/api-keys</a> — free “Experiment” plan</td><td>random letters</td></tr>
     <tr><td>Cohere</td><td><a href="https://dashboard.cohere.com">dashboard.cohere.com</a> → API Keys, trial key</td><td>random letters</td></tr>
   </table></div>
-  <p class="rule-note">All five work without a credit card. Cerebras also has a free tier but asks for a card at sign-up, so we skip it.</p>
+  <p class="rule-note">All five work without a credit card. Watch for look-alikes that aren't free: Cerebras asks for a card at sign-up, and “GLM Coding” is a paid subscription — its key registers as <em>active</em> but serves no models without a paid plan. For a free DeepSeek model, use OpenRouter's <code>openrouter/deepseek/deepseek-v4-flash-0731:free</code>.</p>
 
   <h3>Registering a key — dashboard</h3>
   <ol>
     <li>Open <a href="http://localhost:20128">http://localhost:20128</a> and sign in</li>
-    <li>Go to <strong>Settings → Providers</strong></li>
-    <li>Pick the provider (Gemini, Groq, …), paste the key, and save</li>
+    <li>In the left sidebar choose <strong>Providers</strong> — not <em>API Keys</em>, which manages the gateway's own access keys, a different thing</li>
+    <li>The catalog is grouped by connection type — <em>OAuth</em>, <em>IDE</em>, <em>Web Cookie</em>, <em>API Key</em>. Open <strong>API Key Providers</strong>: every provider in the table above belongs there</li>
+    <li>Find your provider (search works) and click <strong>Add / Connect</strong></li>
+    <li>Paste the key into the credential field, leave the other options at their defaults, and <strong>save</strong></li>
+    <li>The provider now shows as <em>active</em> in your connected list. Verify it really answers: send a test message in the <strong>Playground</strong> page, or run <code>omniroute providers list</code> in the terminal</li>
   </ol>
+  <p class="rule-note">Skip the <em>Web Cookie</em> section — those reuse your browser logins, break when cookies expire, and often violate the service's terms. <em>OAuth</em> and <em>IDE</em> providers route subscription accounts and aren't needed for the free setup.</p>
 
   <h3>Registering a key — terminal</h3>
 <pre><code><span class="cm"># example: add a Groq key (stdin keeps it out of shell history)</span>
