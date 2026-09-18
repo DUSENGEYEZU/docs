@@ -278,7 +278,7 @@ footer.doc{
     <text class="mono" x="85" y="118" text-anchor="middle" font-size="10">OpenAI Compatible</text>
     <rect class="box" x="10" y="150" width="150" height="40" rx="5"/>
     <text x="85" y="170" text-anchor="middle" font-size="13" font-weight="600">Codex CLI</text>
-    <text class="mono" x="85" y="184" text-anchor="middle" font-size="10">omniroute launch-codex</text>
+    <text class="mono" x="85" y="184" text-anchor="middle" font-size="10">~/.codex/config.toml</text>
     <path class="arrow" d="M160 38 C 210 38, 210 88, 252 96"/>
     <path class="arrow" d="M160 104 L 252 104"/>
     <path class="arrow" d="M160 170 C 210 170, 210 120, 252 112"/>
@@ -416,7 +416,7 @@ omniroute providers status</code></pre>
 </section>
 
 <section>
-  <h2><span class="num">6</span>Integrating Cline, Codex, and Cursor</h2>
+  <h2><span class="num">6</span>Integrating Cline, Codex, Copilot, and Cursor</h2>
 
   <h3>Cline (VS Code extension) — recommended</h3>
   <p>Cline runs on your machine, so it reaches <code>localhost</code> directly. In the Cline sidebar, open <strong>⚙ Settings → API Configuration</strong> and set:</p>
@@ -428,14 +428,26 @@ omniroute providers status</code></pre>
     <tr><td>Model ID</td><td><code>auto</code></td></tr>
   </table></div>
 
-  <h3>Codex CLI</h3>
-  <p>OmniRoute ships a dedicated launcher, so there is nothing to configure by hand:</p>
+  <h3>Codex CLI &amp; Codex VS Code extension</h3>
+  <p><strong>Don't use <code>omniroute launch-codex</code></strong> — it points Codex at the gateway but keeps Codex's default OpenAI model, so every message fails with <em>“401 Unauthorized — No active credentials for provider: codex”</em>. Instead, make the gateway Codex's default provider:</p>
 <pre><code><span class="cm"># one-time install of the Codex CLI</span>
-npm install -g @openai/codex
+npm install -g @openai/codex</code></pre>
+  <p>Then add these lines at the <strong>very top</strong> of <code>~/.codex/config.toml</code> (create the file if it doesn't exist; top-level keys must come before any <code>[table]</code> section):</p>
+<pre><code>model_provider = "omniroute"
+model = "auto"
 
-<span class="cm"># launch Codex already pointed at the gateway</span>
-omniroute launch-codex</code></pre>
-  <p class="rule-note">For a permanent profile instead of the launcher: <code>omniroute configure codex --model auto --yes</code> writes one into <code>~/.codex/config.toml</code>.</p>
+[model_providers.omniroute]
+name = "OmniRoute"
+base_url = "http://localhost:20128/v1"
+wire_api = "responses"</code></pre>
+  <ul>
+    <li><strong><code>wire_api = "responses"</code> is required.</strong> With <code>"chat"</code>, Codex refuses to talk to the gateway.</li>
+    <li>No API key is needed — the gateway accepts local requests without one.</li>
+    <li>Plain <code>codex</code> in the terminal now routes through the gateway, and the <strong>Codex VS Code extension</strong> (search <em>Codex</em> by OpenAI, id <code>openai.chatgpt</code>) reads the same file, so it works too.</li>
+  </ul>
+
+  <h3>GitHub Copilot Chat (VS Code)</h3>
+  <p>Copilot's <em>chat</em> can use the gateway; the inline grey-text autocompletions cannot — those always use GitHub's own service. In the chat panel, click the model name at the bottom of the input box → <strong>Manage Models</strong>, add a custom endpoint with URL <code>http://localhost:20128/v1</code>, API type <em>Chat Completions</em>, any API key, model ID <code>auto</code>. Then pick that model in the chat's model picker — the entry under the <em>localhost:20128</em> group, not Copilot's own “Auto”, which is a different model with the same name.</p>
 
   <h3>Cursor — not recommended</h3>
   <p>The Cursor editor <strong>cannot use a localhost gateway</strong>: when you give Cursor a custom API key or base URL, requests are sent from <em>Cursor's cloud servers</em>, which cannot reach an address on your machine. Verification simply fails — it is an architectural limit, not a settings problem.</p>
